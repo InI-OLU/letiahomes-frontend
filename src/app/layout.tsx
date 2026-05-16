@@ -1,6 +1,19 @@
 // src/app/layout.tsx
 import type { Metadata } from "next"
 import "./globals.css"
+import { Rajdhani, Barlow } from "next/font/google";
+
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-rajdhani",
+});
+
+const barlow = Barlow({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-barlow",
+});
 
 export const metadata: Metadata = {
   title: "INIH Homes",

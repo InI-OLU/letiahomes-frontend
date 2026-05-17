@@ -16,7 +16,7 @@ export const heroContent = {
   headline: "WHERE YOUR NEXT STAY BEGINS",
   subtext:
     "Looking for a place that truly fits your needs? From short visits to extended stays, we connect you with spaces that feel just right.",
-  primaryCta: { label: "Get Started", href: "/create-account" },
+  primaryCta: { label: "Get Started", href: "/signup" },
   secondaryCta: { label: "Contact Us", href: "/contact" },
 } as const
 
@@ -63,7 +63,7 @@ export const ctaBannerContent = {
   subtext:
     "Explore a wide range of shortlet spaces in your preferred location, with options designed to match your comfort, style, and budget",
   primaryCta: { label: "Search", href: "/properties" },
-  secondaryCta: { label: "Register", href: "/create-account" },
+  secondaryCta: { label: "Register", href: "/signup" },
 } as const
 // Add to the bottom of src/data/marketing-content.ts
 

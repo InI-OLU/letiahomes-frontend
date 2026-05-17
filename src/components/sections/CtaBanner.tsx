@@ -17,7 +17,7 @@ export function CtaBanner() {
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/65" />
+      <div className="absolute inset-0 bg-black/65"  />
 
       {/* Content — sits above overlay */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-6">

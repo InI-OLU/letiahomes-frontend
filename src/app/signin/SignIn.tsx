@@ -1,33 +1,31 @@
+"use client";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import InputField from "@/components/ui/InputField"
+import InputField from "@/components/ui/InputField";
 import { HiMail, HiLockClosed, HiEye, HiEyeOff } from "react-icons/hi";
 import Link from "next/link";
 
-type SignUpFormData = {
+type SignInFormData = {
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
-const SignUp = () => {
+const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormData>();
+  } = useForm<SignInFormData>();
 
-  const passwordValue = watch("password");
-
-  const onSubmit = async (data: SignUpFormData) => {
-    // Simulate an async call (e.g. API request)
+  const onSubmit = async (data: SignInFormData) => {
     await new Promise((res) => setTimeout(res, 1000));
-    console.log("Form submitted:", data);
+    console.log("Sign in submitted:", data);
     // TODO: call your auth API here
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center font-barlow p-5">
       {/* Two-column card */}
@@ -36,7 +34,7 @@ const SignUp = () => {
         grid grid-cols-1 md:grid-cols-2
         w-full max-w-[860px] min-h-[500px]
         rounded-sm overflow-hidden
-        border border-white/[0.06] 
+        border border-white/[0.06]
         bg-[#041456]"
       >
         {/* ── Left panel ── */}
@@ -57,23 +55,28 @@ const SignUp = () => {
               text-white text-[clamp(2.2rem,4vw,3.2rem)] mb-5
             "
             >
-              Create Your
+              Welcome
               <br />
-              Account
+              Back!
             </h1>
             <p className="text-[0.85rem] font-light text-white/60 leading-relaxed max-w-[280px]">
-              Sign up to start exploring a wide range of comfortable shortlet
-              spaces tailored to your needs. Create an account to easily book,
-              manage your stays, and enjoy a smooth experience from start to
-              finish.
+              Sign in to continue your journey with us. Access your bookings,
+              explore new stays, and manage your account all in one place with
+              ease and convenience.
             </p>
           </div>
         </div>
 
         {/* ── Right panel ── */}
-        <div className=" px-11 py-14 flex flex-col justify-center gap-7 bg-[#02040C]" style={{ clipPath: "polygon(39% 2%, 97% 2%, 97% 97%, 0% 97%)", color:"#041456"}}>
+        <div
+          className="px-11 py-14 flex flex-col justify-center gap-7 bg-[#02040C]"
+          style={{
+            clipPath: "polygon(39% 2%, 97% 2%, 97% 97%, 0% 97%)",
+            color: "#041456",
+          }}
+        >
           <h2 className="font-rajdhani font-semibold text-[1.9rem] tracking-[0.05em] text-white text-center ml-24">
-            Sign Up
+            Sign in
           </h2>
 
           <form
@@ -101,7 +104,7 @@ const SignUp = () => {
               icon={<HiLockClosed />}
               error={errors.password?.message}
               type={showPassword ? "text" : "password"}
-              placeholder="Min. 8 characters"
+              placeholder="Your password"
               inputProps={register("password", {
                 required: "Password is required",
                 minLength: {
@@ -116,23 +119,15 @@ const SignUp = () => {
               }
             />
 
-            <InputField
-              label="Confirm Password"
-              icon={<HiLockClosed />}
-              error={errors.confirmPassword?.message}
-              type={showConfirm ? "text" : "password"}
-              placeholder="Repeat password"
-              inputProps={register("confirmPassword", {
-                required: "Please confirm your password",
-                validate: (val) =>
-                  val === passwordValue || "Passwords do not match",
-              })}
-              rightElement={
-                <span onClick={() => setShowConfirm((v) => !v)}>
-                  {showConfirm ? <HiEyeOff /> : <HiEye />}
-                </span>
-              }
-            />
+            {/* Forgot password — sits below the password field, right-aligned */}
+            <div className="flex justify-end -mt-3">
+              <Link
+                href="/forgot-password"
+                className="text-[0.8rem] text-white/50 hover:text-white/80 transition-colors"
+              >
+                Forgot password?
+              </Link>
+            </div>
 
             <button
               type="submit"
@@ -147,17 +142,17 @@ const SignUp = () => {
                 transition-all duration-200
               "
             >
-              {isSubmitting ? "Creating account…" : "Next"}
+              {isSubmitting ? "Signing in…" : "Next"}
             </button>
           </form>
 
           <p className="text-center text-[0.82rem] text-white/40 ml-24">
-            Already have an account?
+            Don&apos;t have an account?
             <Link
-              href="/signin"
+              href="/signup"
               className="text-[#3b6ef5] font-medium ml-1 hover:underline"
             >
-              Sign in
+              Sign up
             </Link>
           </p>
         </div>
@@ -166,4 +161,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

@@ -1,33 +1,35 @@
+"use client";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import InputField from "@/components/ui/InputField"
-import { HiMail, HiLockClosed, HiEye, HiEyeOff } from "react-icons/hi";
+import InputField from "@/components/ui/InputField";
+import { HiLockClosed, HiEye, HiEyeOff } from "react-icons/hi";
 import Link from "next/link";
 
-type SignUpFormData = {
-  email: string;
+type ResetPasswordFormData = {
   password: string;
   confirmPassword: string;
 };
 
-const SignUp = () => {
+const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormData>();
+  } = useForm<ResetPasswordFormData>();
 
   const passwordValue = watch("password");
 
-  const onSubmit = async (data: SignUpFormData) => {
-    // Simulate an async call (e.g. API request)
+  const onSubmit = async (data: ResetPasswordFormData) => {
     await new Promise((res) => setTimeout(res, 1000));
-    console.log("Form submitted:", data);
-    // TODO: call your auth API here
+    console.log("Password reset:", data);
+    // TODO: call your reset-password API here
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center font-barlow p-5">
       {/* Two-column card */}
@@ -36,15 +38,11 @@ const SignUp = () => {
         grid grid-cols-1 md:grid-cols-2
         w-full max-w-[860px] min-h-[500px]
         rounded-sm overflow-hidden
-        border border-white/[0.06] 
+        border border-white/[0.06]
         bg-[#041456]"
       >
         {/* ── Left panel ── */}
-        <div
-          className="
-          relative flex flex-col justify-center
-          px-11 py-14 overflow-hidden"
-        >
+        <div className="relative flex flex-col justify-center px-11 py-14 overflow-hidden">
           <div
             aria-hidden
             className="absolute top-0 -right-[60px] bottom-0 w-[120px] z-10"
@@ -57,51 +55,37 @@ const SignUp = () => {
               text-white text-[clamp(2.2rem,4vw,3.2rem)] mb-5
             "
             >
-              Create Your
+              Reset
               <br />
-              Account
+              Password
             </h1>
             <p className="text-[0.85rem] font-light text-white/60 leading-relaxed max-w-[280px]">
-              Sign up to start exploring a wide range of comfortable shortlet
-              spaces tailored to your needs. Create an account to easily book,
-              manage your stays, and enjoy a smooth experience from start to
-              finish.
+              Create a new password to regain access to your account. Make sure
+              it&apos;s secure and easy for you to remember so you can continue
+              booking and managing your stays without any issues.
             </p>
           </div>
         </div>
 
         {/* ── Right panel ── */}
-        <div className=" px-11 py-14 flex flex-col justify-center gap-7 bg-[#02040C]" style={{ clipPath: "polygon(39% 2%, 97% 2%, 97% 97%, 0% 97%)", color:"#041456"}}>
-          <h2 className="font-rajdhani font-semibold text-[1.9rem] tracking-[0.05em] text-white text-center ml-24">
-            Sign Up
-          </h2>
-
+        <div
+          className="px-11 py-14 flex flex-col justify-center gap-7 bg-[#02040C]"
+          style={{
+            clipPath: "polygon(39% 2%, 97% 2%, 97% 97%, 0% 97%)",
+            color: "#041456",
+          }}
+        >
           <form
             onSubmit={handleSubmit(onSubmit)}
             noValidate
             className="flex flex-col gap-5"
           >
             <InputField
-              label="Email"
-              icon={<HiMail />}
-              error={errors.email?.message}
-              type="email"
-              placeholder="you@example.com"
-              inputProps={register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Enter a valid email address",
-                },
-              })}
-            />
-
-            <InputField
               label="Password"
               icon={<HiLockClosed />}
               error={errors.password?.message}
               type={showPassword ? "text" : "password"}
-              placeholder="Min. 8 characters"
+              placeholder="New password"
               inputProps={register("password", {
                 required: "Password is required",
                 minLength: {
@@ -121,7 +105,7 @@ const SignUp = () => {
               icon={<HiLockClosed />}
               error={errors.confirmPassword?.message}
               type={showConfirm ? "text" : "password"}
-              placeholder="Repeat password"
+              placeholder="Repeat new password"
               inputProps={register("confirmPassword", {
                 required: "Please confirm your password",
                 validate: (val) =>
@@ -147,12 +131,12 @@ const SignUp = () => {
                 transition-all duration-200
               "
             >
-              {isSubmitting ? "Creating account…" : "Next"}
+              {isSubmitting ? "Resetting…" : "Next"}
             </button>
           </form>
 
           <p className="text-center text-[0.82rem] text-white/40 ml-24">
-            Already have an account?
+            Remember your password?{" "}
             <Link
               href="/signin"
               className="text-[#3b6ef5] font-medium ml-1 hover:underline"
@@ -166,4 +150,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default ResetPassword;
